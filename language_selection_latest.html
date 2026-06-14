@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to Phil. Voice</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Font: Geist (simulated with Inter for standard web availability, assuming high-end minimalist look) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'], // Replacing Geist with Inter as standard fallback for high-end look
+          },
+          colors: {
+            'phil-bg': '#fafafa',
+            'phil-border': '#e5e5e5',
+            'phil-text-main': '#111827',
+            'phil-text-muted': '#6b7280',
+            'phil-accent': '#000000',
+            'phil-hover': '#f3f4f6',
+          },
+          boxShadow: {
+            'phil': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+          }
+        }
+      }
+    }
+  </style>
+<style data-purpose="custom-styles">
+    body {
+      background-color: #f0f0f0; /* Darker background to show the modal clearly */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    
+    .hairline-border {
+      border-width: 1px;
+      border-style: solid;
+      border-color: #e5e5e5;
+    }
+    
+    .language-card {
+      transition: all 0.2s ease;
+    }
+    
+    .language-card:hover {
+      border-color: #000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-phil-text-main">
+<!-- BEGIN: MainModalContainer -->
+<main class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col mx-4 hairline-border" style="max-height: 90vh;">
+<!-- BEGIN: ModalHeader -->
+<header class="flex items-center justify-between px-6 py-4 border-b border-phil-border bg-white sticky top-0 z-10">
+<div class="flex items-center gap-3">
+<!-- Avatar/Icon -->
+<div class="w-10 h-10 rounded-lg bg-black text-white flex items-center justify-center font-medium text-lg shrink-0">
+          P
+        </div>
+<div>
+<h2 class="font-semibold text-sm leading-tight text-phil-text-main">Phil. — Voice Assistant</h2>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500 block"></span>
+<span class="text-xs text-phil-text-muted">Phil. Housing System</span>
+</div>
+</div>
+</div>
+<button aria-label="Close modal" class="text-phil-text-muted hover:text-phil-text-main transition-colors p-1">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</button>
+</header>
+<!-- END: ModalHeader -->
+<!-- BEGIN: ModalContent -->
+<section class="flex-1 overflow-y-auto bg-phil-bg px-8 py-10 flex flex-col items-center text-center">
+<!-- Icon -->
+<div class="w-16 h-16 bg-white rounded-2xl shadow-sm hairline-border flex items-center justify-center mb-8">
+<svg class="text-phil-accent" fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="2" x2="22" y1="12" y2="12"></line>
+<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+</svg>
+</div>
+<!-- Welcome Text -->
+<div class="max-w-md mx-auto mb-10">
+<h1 class="text-2xl font-semibold tracking-tight text-phil-text-main mb-3">Welcome to Phil. Voice</h1>
+<p class="text-phil-text-muted leading-relaxed text-sm">
+          I'll guide you through your housing assistance application by conversation. Which language would you prefer?
+        </p>
+</div>
+<!-- BEGIN: LanguageGrid -->
+<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
+<!-- English Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">US</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">English</div>
+<div class="text-xs text-phil-text-muted mt-0.5">English</div>
+</div>
+</button>
+<!-- Spanish Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">ES</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">Español</div>
+<div class="text-xs text-phil-text-muted mt-0.5">Spanish</div>
+</div>
+</button>
+<!-- French Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">FR</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">Français</div>
+<div class="text-xs text-phil-text-muted mt-0.5">French</div>
+</div>
+</button>
+<!-- Chinese Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">CN</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">中文</div>
+<div class="text-xs text-phil-text-muted mt-0.5">Chinese</div>
+</div>
+</button>
+<!-- Arabic Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">SA</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">العربية</div>
+<div class="text-xs text-phil-text-muted mt-0.5">Arabic</div>
+</div>
+</button>
+<!-- Portuguese Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">BR</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">Português</div>
+<div class="text-xs text-phil-text-muted mt-0.5">Portuguese</div>
+</div>
+</button>
+<!-- Hindi Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">IN</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">हिन्दी</div>
+<div class="text-xs text-phil-text-muted mt-0.5">Hindi</div>
+</div>
+</button>
+<!-- Russian Card -->
+<button class="language-card bg-white rounded-xl p-4 flex items-center gap-4 text-left hairline-border group cursor-pointer focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg">
+<span class="w-10 text-center font-medium text-phil-text-muted group-hover:text-black transition-colors">RU</span>
+<div>
+<div class="font-medium text-sm text-phil-text-main">Русский</div>
+<div class="text-xs text-phil-text-muted mt-0.5">Russian</div>
+</div>
+</button>
+</div>
+<!-- END: LanguageGrid -->
+<!-- Action Footer -->
+<div class="mt-auto pt-4">
+<button class="inline-flex items-center justify-center gap-2 text-sm font-medium text-phil-text-muted hover:text-black transition-colors py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-phil-bg group">
+          Continue in English
+          <svg class="group-hover:translate-x-0.5 transition-transform" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+<line x1="5" x2="19" y1="12" y2="12"></line>
+<polyline points="12 5 19 12 12 19"></polyline>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: ModalContent -->
+</main>
+<!-- END: MainModalContainer -->
+</body></html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Phil. - Main Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#fbf9f9",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "surface-container-highest": "#e3e2e2",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f9",
+                    "tertiary-container": "#1b1b1b",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1b1c1c",
+                    "secondary-fixed-dim": "#4edea3",
+                    "secondary": "#006c49",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-fixed": "#002113",
+                    "on-surface-variant": "#4c4546",
+                    "primary-fixed": "#e2e2e2",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#dbdad9",
+                    "primary": "#000000",
+                    "secondary-container": "#6cf8bb",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#848484",
+                    "primary-container": "#1b1b1b",
+                    "inverse-surface": "#303031",
+                    "on-tertiary-container": "#848484",
+                    "on-secondary-fixed-variant": "#005236",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-variant": "#e3e2e2",
+                    "on-secondary-container": "#00714d",
+                    "inverse-primary": "#c6c6c6",
+                    "outline-variant": "#cfc4c5",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-container": "#efeded",
+                    "surface-container-high": "#e9e8e7",
+                    "tertiary": "#000000",
+                    "outline": "#7e7576",
+                    "inverse-on-surface": "#f2f0f0",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-background": "#1b1c1c",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#1b1b1b",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "on-error-container": "#93000a",
+                    "background": "#fbf9f9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "container-max": "1200px",
+                    "margin-desktop": "64px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "button": [
+                            "Geist"
+                    ],
+                    "label-caps": [
+                            "Geist"
+                    ],
+                    "headline-lg-mobile": [
+                            "Geist"
+                    ],
+                    "headline-lg": [
+                            "Geist"
+                    ],
+                    "display-lg": [
+                            "Geist"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "button": [
+                            "14px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.15em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "letterSpacing": "0em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0em",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-header {
+            background-color: rgba(251, 249, 249, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 0.5px solid theme('colors.outline-variant');
+        }
+        .hairline-border {
+            border: 0.5px solid theme('colors.outline-variant');
+        }
+        .pulse-dot {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        
+        /* Focus styles for text area */
+        textarea:focus {
+            outline: none;
+            border-color: theme('colors.primary');
+            box-shadow: none;
+        }
+
+        /* Mode transition */
+        .mode-content {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .mode-hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            transform: translateY(10px);
+        }
+        .mode-active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar (Shared Component: TopNavBar) -->
+<header class="fixed top-0 w-full z-50 glass-header shadow-sm border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold tracking-tighter text-primary dark:text-primary-fixed">Phil.</span>
+<!-- Status Indicators -->
+<div class="hidden md:flex items-center gap-3 border-l border-outline-variant pl-4 ml-2">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981] pulse-dot"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">System Live</span>
+</div>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-6">
+<!-- Tags -->
+<div class="hidden md:flex items-center gap-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 0;">lock</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Encrypted</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 0;">bolt</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">HUD Compliant</span>
+</div>
+</div>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[120px] pb-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Hero Section -->
+<section class="mb-[80px] md:mb-[120px] max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-stack-md">Dignity Through Structure</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl leading-relaxed">
+                Turning lived experience into completed applications in seconds.
+            </p>
+</section>
+<!-- Two-Column Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Panel: Input Area -->
+<div class="lg:col-span-7 flex flex-col gap-stack-lg">
+<!-- Mode Toggle -->
+<div class="inline-flex p-1 bg-surface-container-low rounded-full hairline-border w-fit">
+<button class="relative px-6 py-2 rounded-full font-button text-button text-primary bg-surface shadow-[0_4px_30px_rgba(0,0,0,0.03)] z-10 transition-all duration-200" id="btn-story" onclick="switchMode('story')">
+                        Story
+                    </button>
+<button class="relative px-6 py-2 rounded-full font-button text-button text-on-surface-variant hover:text-primary transition-all duration-200" id="btn-scan" onclick="switchMode('scan')">
+                        Scan
+                    </button>
+</div>
+<!-- Input Containers Container -->
+<div class="relative min-h-[400px]">
+<!-- Story Mode Content -->
+<div class="mode-content mode-active w-full h-full" id="content-story">
+<div class="bg-surface rounded-lg hairline-border p-6 md:p-8 flex flex-col h-full relative overflow-hidden">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-4 block uppercase tracking-widest" for="story-input">Share Your Story</label>
+<textarea class="w-full flex-grow bg-transparent border-none resize-none font-body-md text-body-md text-primary placeholder-outline focus:ring-0 p-0 leading-relaxed min-h-[200px]" id="story-input" placeholder="Start typing or speak naturally. Tell us about your current housing situation..."></textarea>
+<!-- Microphone Orb Placeholder -->
+<div class="absolute bottom-6 right-6 w-16 h-16 rounded-full overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)] cursor-pointer hover:scale-105 transition-transform duration-300">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full object-cover pointer-events-none" -->
+<div class="absolute inset-0 w-full h-full object-cover pointer-events-none" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 center = vec2(0.5, 0.5);
+    float dist = distance(uv, center);
+    
+    // Subtle monochromatic ripple effect
+    float ripple = sin(dist * 20.0 - u_time * 2.0) * 0.5 + 0.5;
+    ripple *= smoothstep(0.5, 0.2, dist); // Fade out towards edges
+    
+    float mask = smoothstep(0.4, 0.38, dist);
+    
+    vec3 color = vec3(0.1); // Dark base
+    color += ripple * 0.15; // Soft ripple glow
+    
+    gl_FragColor = vec4(color, mask);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">mic</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Scan Mode Content -->
+<div class="mode-content mode-hidden w-full h-full" id="content-scan">
+<div class="bg-surface rounded-lg border border-dashed border-outline-variant p-6 md:p-8 flex flex-col items-center justify-center h-full min-h-[350px] cursor-pointer hover:bg-surface-container-low transition-colors duration-200">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 0;">cloud_upload</span>
+</div>
+<h3 class="font-body-md text-body-md text-primary font-medium mb-2">Upload Document</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-xs">
+                                Drag and drop your ID, lease, or utility bill here, or click to browse.
+                            </p>
+<p class="font-label-caps text-label-caps text-outline mt-6 uppercase tracking-widest">PDF, JPG, PNG up to 10MB</p>
+</div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex justify-end mt-4">
+<button class="bg-primary text-on-primary font-button text-button px-8 py-3 rounded-full hover:opacity-90 transition-opacity flex items-center gap-2">
+<span>Process Input</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right Panel: Output/Preview Workspace -->
+<div class="lg:col-span-5 hidden lg:block">
+<div class="bg-surface rounded-lg hairline-border h-full min-h-[500px] flex items-center justify-center p-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiNFM0UyRTIiLz48L3N2Zz4=')]">
+<div class="text-center flex flex-col items-center opacity-40">
+<span class="material-symbols-outlined text-[48px] text-outline mb-4" style="font-variation-settings: 'wght' 100;">description</span>
+<h4 class="font-body-sm text-body-sm text-on-surface-variant mb-1">Awaiting Input</h4>
+<p class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Workspace Empty</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface/90 backdrop-blur-xl border-t border-outline-variant/30 pb-safe pt-2 px-4 z-50">
+<ul class="flex justify-around items-center h-14">
+<li class="flex flex-col items-center justify-center w-16 text-primary">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-[9px] tracking-wider uppercase">Workspace</span>
+</li>
+<li class="flex flex-col items-center justify-center w-16 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1">history</span>
+<span class="font-label-caps text-[9px] tracking-wider uppercase">History</span>
+</li>
+<li class="flex flex-col items-center justify-center w-16 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="font-label-caps text-[9px] tracking-wider uppercase">Settings</span>
+</li>
+</ul>
+</nav>
+<!-- Interaction Scripts -->
+<script>
+        function switchMode(mode) {
+            const btnStory = document.getElementById('btn-story');
+            const btnScan = document.getElementById('btn-scan');
+            const contentStory = document.getElementById('content-story');
+            const contentScan = document.getElementById('content-scan');
+
+            if (mode === 'story') {
+                // Update Buttons
+                btnStory.className = "relative px-6 py-2 rounded-full font-button text-button text-primary bg-surface shadow-[0_4px_30px_rgba(0,0,0,0.03)] z-10 transition-all duration-200";
+                btnScan.className = "relative px-6 py-2 rounded-full font-button text-button text-on-surface-variant hover:text-primary transition-all duration-200";
+                
+                // Update Content
+                contentStory.classList.remove('mode-hidden');
+                contentStory.classList.add('mode-active');
+                contentScan.classList.remove('mode-active');
+                contentScan.classList.add('mode-hidden');
+            } else {
+                // Update Buttons
+                btnScan.className = "relative px-6 py-2 rounded-full font-button text-button text-primary bg-surface shadow-[0_4px_30px_rgba(0,0,0,0.03)] z-10 transition-all duration-200";
+                btnStory.className = "relative px-6 py-2 rounded-full font-button text-button text-on-surface-variant hover:text-primary transition-all duration-200";
+                
+                // Update Content
+                contentScan.classList.remove('mode-hidden');
+                contentScan.classList.add('mode-active');
+                contentStory.classList.remove('mode-active');
+                contentStory.classList.add('mode-hidden');
+            }
+        }
+    </script>
+</body></html>
