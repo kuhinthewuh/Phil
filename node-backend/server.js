@@ -7,6 +7,9 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pdfParse = require('pdf-parse');
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,53 +49,74 @@ app.post('/api/chat', async (req, res) => {
 
 app.post('/api/ocr', async (req, res) => {
   try {
-    const { documentBase64, systemPrompt } = req.body;
+    const { documentBase64, systemPrompt, mimeType } = req.body;
     if (!documentBase64) return res.status(400).json({ error: "No document provided" });
 
-    console.log("Running Tesseract OCR...");
     const base64Clean = documentBase64.includes(',') ? documentBase64.split(',')[1] : documentBase64;
     const buffer = Buffer.from(base64Clean, 'base64');
     
-    // Check if the buffer starts with the %PDF magic bytes
-    if (buffer.toString('utf-8', 0, 4) === '%PDF') {
-      console.log("PDF upload detected. Rejecting gracefully since Tesseract only supports image formats.");
-      return res.status(400).json({ 
-        error: "PDF files are not supported directly by the OCR scanner. Please upload a JPG/PNG image or screenshot of your form instead." 
-      });
-    }
-    
-    const { data: { text, lines } } = await Tesseract.recognize(buffer, 'eng');
-    console.log("Extracted text length:", text.length);
-
-    // Heuristic: Find blank spots (underlines, dots) and their preceding text
+    let text = "";
     let extractedSpots = [];
-    let lastContext = "";
-    
-    if (lines) {
-      lines.forEach(line => {
-        let currentContext = [];
-        line.words.forEach(word => {
-          if (/[_]{2,}/.test(word.text) || /[.]{3,}/.test(word.text)) {
-             const contextStr = currentContext.length > 0 ? currentContext.join(" ") : lastContext;
-             extractedSpots.push({
-               context: contextStr.replace(/[^a-zA-Z0-9 ]/g, '').trim() || "Unknown Field",
-               bbox: word.bbox
-             });
-             currentContext = []; // Reset context for the next field on the same line
-          } else {
-             currentContext.push(word.text);
+    let isPDF = mimeType === 'application/pdf' || buffer.toString('utf-8', 0, 4) === '%PDF';
+
+    if (isPDF) {
+      console.log("PDF upload detected. Running pdf-parse...");
+      const data = await pdfParse(buffer);
+      text = data.text;
+      console.log("Extracted PDF text length:", text.length);
+    } else {
+      console.log("Running Tesseract OCR...");
+      const result = await Tesseract.recognize(buffer, 'eng');
+      text = result.data.text;
+      const lines = result.data.lines;
+      console.log("Extracted text length:", text.length);
+
+      // Heuristic: Find blank spots (underlines, dots) and their preceding text
+      let lastContext = "";
+      
+      if (lines) {
+        lines.forEach(line => {
+          let currentContext = [];
+          line.words.forEach(word => {
+            if (/[_]{2,}/.test(word.text) || /[.]{3,}/.test(word.text)) {
+               const contextStr = currentContext.length > 0 ? currentContext.join(" ") : lastContext;
+               extractedSpots.push({
+                 context: contextStr.replace(/[^a-zA-Z0-9 ]/g, '').trim() || "Unknown Field",
+                 bbox: word.bbox
+               });
+               currentContext = []; // Reset context for the next field on the same line
+            } else {
+               currentContext.push(word.text);
+            }
+          });
+          if (line.text.trim()) {
+            lastContext = line.text;
           }
         });
-        if (line.text.trim()) {
-          lastContext = line.text;
-        }
-      });
+      }
+      console.log(`Found ${extractedSpots.length} blank spots.`);
     }
 
-    console.log(`Found ${extractedSpots.length} blank spots.`);
-
     console.log("Mapping semantics via Groq...");
-    const fullPrompt = `${systemPrompt || "Analyze this document and extract its fields."}
+    let fullPrompt;
+    if (isPDF) {
+      fullPrompt = `${systemPrompt || "Analyze this document and extract its fields."}
+
+Here is the raw text extracted from the PDF document:
+"${text}"
+
+Return ONLY a JSON object containing an array of objects. For each field, figure out a good 'key' (snake_case) and 'label' (human readable).
+Schema:
+{
+  "fields": [
+    {
+      "key": "first_name",
+      "label": "First Name"
+    }
+  ]
+}`;
+    } else {
+      fullPrompt = `${systemPrompt || "Analyze this document and extract its fields."}
 
 Here are the blank spots found in the document, with the text immediately preceding them (context) and their bounding box coordinates:
 ${JSON.stringify(extractedSpots, null, 2)}
@@ -108,6 +132,7 @@ Schema:
     }
   ]
 }`;
+    }
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [{ role: 'user', content: fullPrompt }],

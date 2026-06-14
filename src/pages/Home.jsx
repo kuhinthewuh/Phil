@@ -176,6 +176,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           documentBase64: base64Data,
+          mimeType: mimeType,
           systemPrompt: "Analyze this document. You must ONLY extract and return the following fields: Full Name, Email, Phone, Date of Birth, Gender, Current Street Address, and City, State, Zip. Do NOT extract any other fields under any circumstances. Return a JSON array of objects, where each object has a 'key' (snake_case identifier) and a 'label' (human readable name of the field). Return the array nested inside a root object like so: { \"fields\": [{\"key\": \"full_name\", \"label\": \"Full Name\"}, ...] }."
         })
       })
