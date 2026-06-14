@@ -220,12 +220,29 @@ export default function Home() {
       .map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`)
       .join(". ");
 
+    let promptToUse = SYSTEM_PROMPT;
+    let expectedKeys = ["first_name", "last_name", "monthly_income", "housing_status", "dependents", "primary_language", "phone_number", "hardship_summary"];
+
+    if (dynamicFields && dynamicFields.length > 0) {
+      expectedKeys = dynamicFields.map(f => f.key);
+      promptToUse = `You are a data extraction engine.
+Convert the provided narrative into precise structured JSON matching the following schema.
+IMPORTANT: TRANSLATE ALL EXTRACTED VALUES INTO ENGLISH, regardless of the input language.
+
+Return this schema exactly:
+{
+${dynamicFields.map(f => `  "${f.key}": ""`).join(",\n")}
+}`;
+    } else {
+      promptToUse = SYSTEM_PROMPT + "\n\nIMPORTANT: TRANSLATE ALL EXTRACTED VALUES INTO ENGLISH, regardless of the input language.";
+    }
+
     const aiCall = fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         transcript: narrative,
-        systemPrompt: SYSTEM_PROMPT
+        systemPrompt: promptToUse
       })
     })
       .then(async res => {
@@ -239,21 +256,15 @@ export default function Home() {
 
     const [result] = await Promise.all([aiCall, minDelay]);
 
-    if (result && typeof result === "object" && result.first_name) {
+    if (result && typeof result === "object" && Object.keys(result).some(k => expectedKeys.includes(k))) {
       setFormData(result);
     } else {
-      // Graceful fallback: use voice data directly
-      setFormData({
-        first_name: voiceData.first_name || "Unknown",
-        last_name: voiceData.last_name || "Unknown",
-        monthly_income: voiceData.monthly_income || 0,
-        housing_status: voiceData.housing_status || "Unknown",
-        dependents: voiceData.dependents || 0,
-        primary_language: voiceData.primary_language || "English",
-        phone_number: voiceData.phone_number || "Unknown",
-        hardship_summary: voiceData.hardship_summary || "Applicant completed voice intake.",
-        signature: voiceData.signature || undefined
+      // Graceful fallback: use voice data directly based on expectedKeys
+      const fallbackData = {};
+      expectedKeys.forEach(k => {
+        fallbackData[k] = voiceData[k] || "Unknown";
       });
+      setFormData(fallbackData);
     }
 
     setIsProcessing(false);
